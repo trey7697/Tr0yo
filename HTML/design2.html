@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="design2.css"/>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <header class="navbar">
+    <div class="logo">My Portfolio</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section id="hero" class="hero-section content-section active">
+    <div class="hero-content">
+      <h1>Hello, I'm Your Name Here</h1>
+      <p><span id="typed-text"></span><span id="cursor">|</span></p>
+      <a href="#projects" class="btn see-work-btn">See My Work</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="content-section alt-bg">
+    <h2>About Me</h2>
+    <div class="about-container">
+      <img src="Your Image here" alt="Profile" class="about-img"/>
+      <p>Info about you here</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="content-section">
+    <h2>My Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><label>Skill 1</label><div class="skill-bar"><div class="fill" style="width: 20%;"></div></div></div>
+      <div class="skill-card"><label>Skill 2</label><div class="skill-bar"><div class="fill" style="width: 15%;"></div></div></div>
+      <div class="skill-card"><label>Skill 3</label><div class="skill-bar"><div class="fill" style="width: 20%;"></div></div></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="content-section alt-bg">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Project Placeholder</h3>
+        <p>Showcase your future projects here.</p>
+        <a href="#" class="btn">Coming Soon</a>
+      </div>
+      <div class="project-card">
+        <h3>Another Project</h3>
+        <p>Add details about your project here.</p>
+        <a href="#" class="btn">Coming Soon</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="content-section">
+    <h2>Contact Me</h2>
+    <p><strong>Email:</strong> Your email here</p>
+    <p><strong>Phone:</strong> Your number</p>
+    <p><strong>Location:</strong> Philippines</p>
+    <form class="contact-form" action="mailto:your@email.com" method="POST" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required/>
+      <input type="email" name="email" placeholder="Your Email" required/>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Your Name Here. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const phrases = ["I'm a Computer Engineering Student.","I love building cool stuff."];
+    let i=0,j=0,isDeleting=false,currentPhrase="";
+    const typedText=document.getElementById("typed-text");
+    const cursor=document.getElementById("cursor");
+
+    function type(){
+      if(i>=phrases.length) i=0;
+      currentPhrase=phrases[i];
+      if(!isDeleting && j<=currentPhrase.length){
+        typedText.textContent=currentPhrase.slice(0,j++);
+        setTimeout(type,100);
+      } else if(isDeleting && j>=0){
+        typedText.textContent=currentPhrase.slice(0,j--);
+        setTimeout(type,50);
+      } else {
+        isDeleting=!isDeleting;
+        if(!isDeleting) i++;
+        setTimeout(type,1000);
+      }
+    }
+    type();
+
+    const navLinks=document.querySelectorAll(".nav-links a");
+    const sections=document.querySelectorAll(".content-section");
+
+    // Navigation tab switching
+    navLinks.forEach(link=>{
+      link.addEventListener("click",function(e){
+        e.preventDefault();
+        sections.forEach(sec=>sec.classList.remove("active"));
+        document.querySelector(this.getAttribute("href")).classList.add("active");
+      });
+    });
+
+    // "See My Work" button activates Projects tab
+    const seeWorkBtn=document.querySelector(".see-work-btn");
+    seeWorkBtn.addEventListener("click",function(e){
+      e.preventDefault();
+      sections.forEach(sec=>sec.classList.remove("active"));
+      document.querySelector("#projects").classList.add("active");
+      // Optional: smooth scroll
+      document.querySelector("#projects").scrollIntoView({behavior:"smooth"});
+    });
+  </script>
+
+</body>
+</html>
